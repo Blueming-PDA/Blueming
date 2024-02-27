@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Button, Card, Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import CodeShare from "./codeShare/CodeShare";
 import SetLink from "./codeShare/SetLink";
 import Question from "./question/Question";
+import { useDispatch, useSelector } from "react-redux";
+import { redirect, useNavigate, Link } from "react-router-dom";
+import { Button, Card, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import point from "/point.png";
 import "./MainPage.css";
-import socket from "./socket/socket";
 
 export default function MainPage() {
   const [codelink, setCodelink] = useState("");
   const [showCodeShare, setShowCodeShare] = useState(false);
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
+  const navigate = useNavigate();
 
-  // socket 연결 확인
+  const userObj = useSelector((state) => {
+    return state.user.userInfo;
+  });
+
   useEffect(() => {
+    console.log("hello");
     if (userObj === null) {
       alert("로그인이 필요합니다.");
       // 로그인 페이지로 이동
       navigate("/users/login");
     }
-  });
+  }, [userObj, history]);
 
-  const userObj = useSelector((state) => {
-    return state.user.userInfo;
-  });
   const handleShowCodeShare = () => {
     window.open(
       codelink,
@@ -52,79 +54,94 @@ export default function MainPage() {
   const CLASS = "프로 디지털 아카데미";
 
   return (
-    <div className="main-container">
+    <div>
       <div style={{ display: "flex", gap: 50 }}>
         {userObj && userObj.admin === 0 ? (
           <>
-            <Button onClick={handleShowQuestion}>🙋‍♀️ 질문하기</Button>
-            <Button onClick={handleShowLinkInput}>🖥️ 화면공유 하기</Button>
-            <Button onClick={handleShowCodeShare}>🖥️ 화면공유 보기</Button>
+            <Button className="main-btn" onClick={handleShowQuestion}>
+              🙋‍♀️ 질문하기
+            </Button>
+            <Button className="main-btn" onClick={handleShowLinkInput}>
+              🖥️ 화면공유 하기
+            </Button>
+            <Button className="main-btn" onClick={handleShowCodeShare}>
+              🖥️ 화면공유 보기
+            </Button>
           </>
         ) : (
           <>
-            <Button>👀 질문보기</Button>
-            <Button onClick={handleShowLinkInput}>🖥️ 화면공유 하기</Button>
-            <Button onClick={handleShowCodeShare}>🖥️ 화면공유 보기</Button>
+            <Button className="main-btn">👀 질문보기</Button>
+            <Button className="main-btn" onClick={handleShowLinkInput}>
+              🖥️ 화면공유 하기
+            </Button>
+            <Button className="main-btn" onClick={handleShowCodeShare}>
+              🖥️ 화면공유 보기
+            </Button>
           </>
         )}
-      </div>
 
-      <img className="point-img" src={point} width="75" alt="Blueming point" />
-      <div className="week-board">
-        {/* TODO */}
-        <p>나의 수업: {CLASS}</p>
-        <div className="week-card-container">
-          <Card className="custom-card c1">
-            <div className="circle"></div>
-            <p className="week-text">MON</p>
-            <p className="week-num">2/26</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c2">
-            <div className="circle"></div>
-            <p className="week-text">TUE</p>
-            <p className="week-num">2/27</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c3">
-            <div className="circle"></div>
-            <p className="week-text">WED</p>
-            <p className="week-num">2/28</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c4">
-            <div className="circle"></div>
-            <p className="week-text">THU</p>
-            <p className="week-num">2/29</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-          <Card className="custom-card c5">
-            <div className="circle"></div>
-            <p className="week-text">FRI</p>
-            <p className="week-num red">3/1</p>
-            <p className="week-curriculum">
-              클라우드 기반 프론트엔드 개발(React) 프로그래밍
-            </p>
-          </Card>
-        </div>
-      </div>
-
-      {showLinkInput && (
-        <SetLink
-          setCodelink={setCodelink}
-          handleShowLinkInput={handleShowLinkInput}
+        <img
+          className="point-img"
+          src={point}
+          width="75"
+          alt="Blueming point"
         />
-      )}
-      {showQuestion && <Question handleShowQuestion={handleShowQuestion} />}
-      {showCodeShare && <CodeShare link={codelink} />}
+        <div className="week-board">
+          {/* TODO */}
+          <p>나의 수업: {CLASS}</p>
+          <div className="week-card-container">
+            <Card className="custom-card c1">
+              <div className="circle"></div>
+              <p className="week-text">MON</p>
+              <p className="week-num">2/26</p>
+              <p className="week-curriculum">
+                클라우드 기반 프론트엔드 개발(React) 프로그래밍
+              </p>
+            </Card>
+            <Card className="custom-card c2">
+              <div className="circle"></div>
+              <p className="week-text">TUE</p>
+              <p className="week-num">2/27</p>
+              <p className="week-curriculum">
+                클라우드 기반 프론트엔드 개발(React) 프로그래밍
+              </p>
+            </Card>
+            <Card className="custom-card c3">
+              <div className="circle"></div>
+              <p className="week-text">WED</p>
+              <p className="week-num">2/28</p>
+              <p className="week-curriculum">
+                클라우드 기반 프론트엔드 개발(React) 프로그래밍
+              </p>
+            </Card>
+            <Card className="custom-card c4">
+              <div className="circle"></div>
+              <p className="week-text">THU</p>
+              <p className="week-num">2/29</p>
+              <p className="week-curriculum">
+                클라우드 기반 프론트엔드 개발(React) 프로그래밍
+              </p>
+            </Card>
+            <Card className="custom-card c5">
+              <div className="circle"></div>
+              <p className="week-text">FRI</p>
+              <p className="week-num red">3/1</p>
+              <p className="week-curriculum">
+                클라우드 기반 프론트엔드 개발(React) 프로그래밍
+              </p>
+            </Card>
+          </div>
+        </div>
+
+        {showLinkInput && (
+          <SetLink
+            setCodelink={setCodelink}
+            handleShowLinkInput={handleShowLinkInput}
+          />
+        )}
+        {showQuestion && <Question handleShowQuestion={handleShowQuestion} />}
+        {showCodeShare && <CodeShare link={codelink} />}
+      </div>
     </div>
   );
 }
