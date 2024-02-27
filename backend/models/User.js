@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0, // default: 일반 사용자 (관리자가 아님)
   },
+  token : { // socket 통신을 위한 id
+    type : String, 
+  }
 });
 
 userSchema.statics.signUp = async function (userInfo) {
@@ -59,6 +62,17 @@ userSchema.statics.login = async function (email, password) {
   }
   throw Error("잘못된 이메일입니다.");
 };
+
+userSchema.statics.socket = async function (email, token) {
+  const user = await this.findOne({email})
+  if (user) {
+    user.token = token;
+
+    await user.save();
+
+    return user.visibleUser;
+  }
+}
 
 const visibleUser = userSchema.virtual("visibleUser");
 visibleUser.get(function (values, virtual, doc) {
