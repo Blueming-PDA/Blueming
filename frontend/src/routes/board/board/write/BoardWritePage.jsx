@@ -11,7 +11,6 @@ import {
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import BoardApi from "~/lib/apis/board";
-import point from "/point.png";
 
 export default function BoardWritePage() {
   const navigate = useNavigate();
@@ -116,26 +115,9 @@ export default function BoardWritePage() {
     }));
   }, [selectedTags]);
 
-  // 파일 업로드
-  const FileUpload = (e) => {
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    console.log("키키");
-    for (const key of formData) console.log(key);
-  };
-
   return (
     <Container className="min-vh-100">
-      <img
-        src={point}
-        width="65"
-        className="d-inline-block align-top-img"
-        alt="Blueming point"
-      />
-      <div className="board-name">
-        {boardId ? "게시글 수정" : "게시글 작성"}
-      </div>
-
+      <h1>{boardId ? "게시글 수정" : "게시글 등록"}</h1>
       <Form>
         <fieldset>
           <Form.Group
@@ -174,26 +156,15 @@ export default function BoardWritePage() {
                 ))}
               </Stack>
             </div>
-
-            {/* 파일 업로드 */}
             <Form.Group controlId="formFile" className="mb-0">
-              <Form.Control
-                type="file"
-                className="shadow-none"
-                accept="image/*"
-                size="sm"
-                style={{ width: "200px" }}
-                onChange={(e) => {
-                  FileUpload(e);
-                }}
-              />
+              <Form.Control type="file" size="sm" style={{ width: "200px" }} />
             </Form.Group>
           </div>
 
           <Form.Group className="mb-3" controlId="writeForm.content.input">
             <Form.Control
               as="textarea"
-              rows={7}
+              rows={3}
               name="boardContent"
               value={boardContent}
               placeholder="내용을 입력해주세요."
@@ -215,8 +186,20 @@ export default function BoardWritePage() {
           </Form.Group>
 
           <div className="d-flex justify-content-end mb-3">
-            <Button type="button" onClick={handleWriteBoard}>
-              {boardId ? "수정" : "작성"}
+            <Button
+              onClick={(e) => {
+                navigate(-1);
+              }}
+              className="me-2 custom-btn"
+            >
+              ◀◀️
+            </Button>
+            <Button
+              type="button"
+              onClick={handleWriteBoard}
+              className="me-2 custom-btn"
+            >
+              {boardId ? "수정" : "등록"}
             </Button>
           </div>
         </fieldset>

@@ -4,7 +4,6 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import point from "/point.png";
 
 export function timeAgo(updatedAt) {
   const now = new Date();
@@ -111,14 +110,7 @@ export default function BoardWritePage() {
 
   return (
     <Container className="board-page">
-      <img
-        src={point}
-        width="65"
-        className="d-inline-block align-top-img"
-        alt="Blueming point"
-      />
-
-      <div className="board-name">공지사항</div>
+      <h1>공지사항</h1>
       <div className="search-bar">
         <Form.Control
           className="search-form"
@@ -139,13 +131,13 @@ export default function BoardWritePage() {
         </Button>
       </div>
       <div className="write-board">
-        {userObj ? (
+        {userObj.admin == 1 ? (
           <Link
             to={`/notice/write`}
             preventScrollReset
             className="text-decoration-none"
           >
-            <Button className="write-board-btn">작성</Button>
+            <Button className="write-board-btn">등록</Button>
           </Link>
         ) : (
           ""
@@ -162,23 +154,19 @@ export default function BoardWritePage() {
               className="text-decoration-none"
             >
               <div key={index} className="board">
-                <div className="board-tags">
+                <div className="board-title-tag">
+                  <div className="board-title-comment">
+                    {data.boardTitle}{" "}
+                    {data.commentCount ? "(" + data.commentCount + ")" : null}
+                  </div>
                   {data.tag &&
                     data.tag.map((boardTag) => (
                       <div className="board-tag">{boardTag}</div>
                     ))}
                 </div>
-
-                <div className="board-title">{data.boardTitle} </div>
-
-                <div className="board-comment-writer-date">
-                  <div className="board-comment">
-                    {data.commentCount ? "💬 " + data.commentCount : "💬 0"}
-                  </div>
-                  <div className="writer-date">
-                    <strong>{data.isAnonymous ? "익명" : data.userName}</strong>{" "}
-                    | {timeAgo(data.updatedAt)}{" "}
-                  </div>
+                <div className="writer-date">
+                  <strong>{data.isAnonymous ? "익명" : data.userName}</strong> /{" "}
+                  {timeAgo(data.updatedAt)}{" "}
                 </div>
               </div>
             </Link>
