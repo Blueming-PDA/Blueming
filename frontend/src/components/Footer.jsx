@@ -1,19 +1,28 @@
 // Footer.js
-import React from 'react'
-import { Container, Navbar } from 'react-bootstrap'
+import React from "react";
+import { Container, Navbar } from "react-bootstrap";
+import "./Footer.css";
 
 const Footer = () => {
   return (
-    <Navbar fixed="bottom" bg="dark" variant='dark' style={{ marginLeft: '200px' }}>
+    <Navbar
+      fixed="bottom"
+      bg="light"
+      variant="dark"
+      style={{ marginLeft: "200px" }}
+    >
       <Container>
-        <Navbar.Text>&copy; 2024 Blueming </Navbar.Text>
-        <Navbar.Text>김미래</Navbar.Text>
-        <Navbar.Text>김시은</Navbar.Text>
-        <Navbar.Text>박서희</Navbar.Text>
-        <Navbar.Text>한다현</Navbar.Text>
+        <Navbar.Text className="footer-copyright-text">
+          &copy; 2024. Blueming Co. all rights reserved.
+        </Navbar.Text>
+        <Navbar.Text className="footer-github-text">
+          <a href="https://github.com/Blueming-PDA/Blueming" target="_blank">
+            Github Link.
+          </a>
+        </Navbar.Text>
       </Container>
     </Navbar>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

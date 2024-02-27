@@ -1,0 +1,103 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btn-group {
+  display: flex;
+  gap: 80px;
+}
+
+.main-btn {
+  width: 200px;
+  height: 100px;
+  border-radius: 15px !important;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: #ebf1ff;
+  color: #474747;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.point-img {
+  position: relative;
+  z-index: 1;
+  top: 45px;
+}
+
+.week-board {
+  width: 800px;
+  height: 300px;
+  background-color: #ebf1ff;
+  border-radius: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin: 0 auto;
+  bottom: -20px;
+}
+
+.week-board p {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 35px;
+  color: #474747;
+}
+
+.week-card-container {
+  gap: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.custom-card {
+  width: 135px;
+  height: 180px;
+  border: none;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: 5px;
+}
+
+.custom-card.c1 {
+  margin-left: 22px;
+}
+
+.circle {
+  width: 7px;
+  height: 7px;
+  background-color: gray;
+  border-radius: 50%;
+  position: absolute;
+  top: 15px;
+  left: 65px;
+}
+
+p.week-text {
+  color: #474747;
+  font-weight: 400;
+  font-size: 15px;
+  margin-top: -5px;
+}
+
+p.week-num {
+  color: #0048ff;
+  font-weight: 500;
+  font-size: 17px;
+  margin-top: -15px;
+}
+
+p.week-num.red {
+  color: #ff3d00;
+  font-weight: 500;
+}
+
+p.week-curriculum {
+  color: #474747;
+  font-size: 9px;
+  margin-top: -5px;
+}

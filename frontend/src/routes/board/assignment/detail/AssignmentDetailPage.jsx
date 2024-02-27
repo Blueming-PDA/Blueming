@@ -158,7 +158,7 @@ export default function BoardDetailPage() {
             <strong>
               {boardData.isAnonymous ? "익명" : boardData.userName}
             </strong>{" "}
-            / {timeAgo(boardData.updatedAt)}{" "}
+            | {timeAgo(boardData.updatedAt)}{" "}
             {boardData.updatedAt !== boardData.createdAt ? "(수정)" : null}
           </div>
           <div className="board-detail-btns">

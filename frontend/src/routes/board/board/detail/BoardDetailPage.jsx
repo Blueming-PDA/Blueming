@@ -149,16 +149,14 @@ export default function BoardDetailPage() {
               <div className="board-detail-tag">{boardDetailTag}</div>
             ))}
         </div>
-        <div className="board-detail-title">
-          <h1>{boardData.boardTitle}</h1>
-        </div>
+        <div className="board-detail-title">{boardData.boardTitle}</div>
 
         <div className="board-writer-date-btns">
           <div className="board-writer-date">
             <strong>
               {boardData.isAnonymous ? "익명" : boardData.userName}
             </strong>{" "}
-            / {timeAgo(boardData.updatedAt)}{" "}
+            | {timeAgo(boardData.updatedAt)}{" "}
             {boardData.updatedAt !== boardData.createdAt ? "(수정)" : null}
           </div>
           <div className="board-detail-btns">

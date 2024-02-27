@@ -42,11 +42,16 @@
 }
 
 @font-face {
-  font-family: "yoon";
+  font-family: "yoon330";
   src: url("./assets/fonts/윤고딕330.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "yoon340";
+  src: url("../assets/fonts/example.ttf") format("truetype");
+}
+
 body {
-  font-family: "yoon" !important;
+  font-family: "yoon330" !important;
   margin: 0;
 }
