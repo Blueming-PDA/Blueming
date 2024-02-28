@@ -19,6 +19,7 @@ router.get("/", (req, res, next) => {
 router.get("/activate/", (req, res, next) => {
   CodeLink.findOne({ activate: true })
     .then((data) => {
+      console.log(data);
       res.send(data);
     })
     .catch((err) => {
@@ -40,13 +41,14 @@ router.post("/", authenticate, (req, res, next) => {
 });
 
 // 코드 링크 수정하기 :: 공유 중지하기 누르면 activate false로 바꾸기
-router.put("/:codeLink/", authenticate, (req, res, next) => {
-  console.log(req.params);
-  CodeLink.findOneAndUpdate(
-    { codeLink: req.params.codeLink },
+router.put("/:codeLinkId/", authenticate, (req, res, next) => {
+  console.log("LINK :::: ", req.params.codeLinkId);
+  CodeLink.findByIdAndUpdate(
+    req.params.codeLinkId,
     {
       ...req.body,
-    }
+    },
+    { new: true } // 업데이트된 문서를 반환
   )
     .then((data) => {
       res.send(data);
