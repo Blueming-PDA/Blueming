@@ -8,14 +8,13 @@ import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
   return (
-    <>
+    <div className="entire">
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <RouterProvider router={router} />
         </PersistGate>
       </Provider>
-
-    </>
+    </div>
   );
 }
 

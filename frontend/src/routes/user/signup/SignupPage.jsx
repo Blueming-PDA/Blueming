@@ -3,6 +3,7 @@ import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { fetchSignup } from "../../../lib/apis/auth";
 import { redirect, useNavigate } from "react-router-dom";
 import "./SignupPage.css";
+import point from "/point.png";
 
 export default function SignUpPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -29,7 +30,7 @@ export default function SignUpPage() {
   return (
     <Container className="min-vh-100  d-flex flex-column justify-content-center align-items-center">
       <div style={{ width: "100%", maxWidth: 640 }}>
-        <img className="logo" alt="point" src="../public/point.png" />
+        <img className="logo" alt="point" src={point} />
         <h3 style={{ alignSelf: "start" }}> 환영합니다!</h3>
         <span className="content">
           교육의 아름다운 정원, 블루밍에 오신 것을 축하합니다 🌷✨<br></br>
@@ -68,7 +69,7 @@ export default function SignUpPage() {
         </FloatingLabel>
         <FloatingLabel
           controlId="floatingNickname"
-          label="nickname"
+          label="Name"
           className="mb-3"
         >
           <Form.Control
@@ -82,7 +83,7 @@ export default function SignUpPage() {
         </FloatingLabel>
         <FloatingLabel
           controlId="floatingNickname"
-          label="phone"
+          label="Phone"
           className="mb-3"
         >
           <Form.Control

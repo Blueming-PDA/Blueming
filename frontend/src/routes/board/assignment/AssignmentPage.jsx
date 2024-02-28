@@ -8,8 +8,6 @@ import point from "/point.png";
 import { timeAgo } from "../board/BoardPage";
 import { setSid } from "../../socket/socketEvents";
 
-
-
 export default function AssignmentPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -23,12 +21,13 @@ export default function AssignmentPage() {
   });
 
   let userId;
+  let userAdmin;
   if (userObj) {
     userId = userObj._id;
+    userAdmin = userObj.admin;
   } else {
     userId = "trash";
   }
-
 
   const callCommentData = async (boardId) => {
     try {
@@ -135,7 +134,7 @@ export default function AssignmentPage() {
       <div className="board-list">
         {currentPosts.map((data, index) => (
           <div>
-            {userId === (data.userId || "trash") ? (
+            {userId === data.userId || userAdmin === 1 ? (
               <Link
                 to={`/assignment/${data._id}`}
                 key={data._id}

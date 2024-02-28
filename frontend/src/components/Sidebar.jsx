@@ -10,7 +10,7 @@ const Sidebar = () => {
     <div style={{ position: "relative", marginLeft: "3%" }}>
       <Nav
         defaultActiveKey="/home"
-        className=" flex-column"
+        className="my-sidebar flex-column"
         style={{
           position: "sticky",
           top: "15%",
@@ -21,8 +21,6 @@ const Sidebar = () => {
           overflow: "auto",
           backgroundColor: "white",
           color: "black",
-          // borderRight: '2px solid lightgray',
-          boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.2)",
           zIndex: 1,
           margin: "100% 0",
           borderRadius: "15px",
@@ -62,6 +60,7 @@ const Sidebar = () => {
         <Nav.Link
           href="https://github.com/Blueming-PDA/Blueming/blob/docs/README.md"
           className="nav-link"
+          target="_blank"
           style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
         >
           소개

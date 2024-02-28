@@ -116,7 +116,7 @@ export default function AssignmentWritePage() {
   }, [selectedTags]);
 
   return (
-    <Container className="min-vh-100" style={{ marginTop: "80px" }}>
+    <Container className="min-vh-100">
       <img
         src={point}
         width="65"
@@ -156,6 +156,7 @@ export default function AssignmentWritePage() {
                     bg={selectedTags === tag ? "primary" : "secondary"}
                     onClick={() => handleSelectTag(tag)}
                     style={{ cursor: "pointer", color: "white" }}
+                    className="tag-badge"
                   >
                     {tag}
                   </Badge>
@@ -173,7 +174,7 @@ export default function AssignmentWritePage() {
               rows={7}
               name="boardContent"
               value={boardContent}
-              placeholder="내용을 입력해주세요."
+              placeholder="상단의 태그를 선택하고 내용을 입력해주세요."
               onChange={handleInputChange}
             />
           </Form.Group>

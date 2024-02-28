@@ -24,7 +24,7 @@
 
 .myInfoBox {
   width: 500px;
-  height: 350px;
+  height: 340px;
   background-color: #ebf1ff;
   border-radius: 20px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -53,12 +53,14 @@
 }
 
 .search-bar {
-  margin-top: 30px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 }
 
 .myPageContainer {
   padding-left: 20px;
   padding-right: 20px;
+  margin-top: 20px;
 }
 
 .profileImage {
@@ -69,8 +71,36 @@
 
 .text-center {
   text-align: center;
+  margin-top: 80px;
 }
 
 .searchLayout {
   text-align: center;
+  margin-top: 40px;
+}
+
+.board-list {
+  margin: 20px;
+  padding: 30px;
+  border-radius: 10px;
+  border: thin solid lightgray;
+  align-items: center;
+  gap: 20px;
+  display: block; /* flex 대신 block 속성을 적용 */
+}
+.extended-list-item {
+  margin-bottom: 10px;
+  padding: 20px;
+  min-height: 70px;
+  width: 100%; /* 너비를 조정하고 싶은 경우, 예를 들어 95% 또는 900px 등으로 설정 가능 */
+  border-radius: 20px !important; /* 모서리를 둥글게 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+}
+
+.list-group-item {
+  margin-bottom: 10px; /* 각 리스트 항목 하단에 10px의 마진을 추가 */
+  padding: 30px; /* 항목 내부에 20px의 패딩을 추가하여 더 크게 만듦 */
+  /* 각 항목의 높이를 고정하거나 최소 높이를 설정하려면 height 또는 min-height 속성을 사용 */
+  min-height: 100px; /* 최소 높이를 70px로 설정 */
+  min-width: 200px;
 }

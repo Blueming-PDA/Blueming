@@ -163,7 +163,7 @@ export default function NoticeDetailPage() {
   return (
     <>
       {boardData ? (
-        <Container className="board-detail-page" style={{ marginTop: "80px" }}>
+        <Container className="board-detail-page">
           <div className="board-detail-all">
             <div className="board-detail-tag-container">
               {boardData.tag &&

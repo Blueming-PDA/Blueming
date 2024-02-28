@@ -13,23 +13,26 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { fetchMypageBoardList } from "../../../lib/apis/board";
 import PasswordChangeModal from "./PasswordChangeModal";
+import ProfileModal from "./ProfileModal";
 import { fetchLogout } from "../../../lib/apis/auth";
 import { logout } from "../../../store/reducers/user";
 import { Form } from "react-bootstrap";
 import "./MyPage.css";
 import { setSid } from "../../socket/socketEvents";
+import {
+  fetchChangeProfileImage,
+  fetchGetProfileImage,
+} from "../../../lib/apis/profile";
+import { fetchProfile } from "../../../store/reducers/user";
 
 const ProfilePage = () => {
-  // 사용자가 작성한 게시글 목록을 가정한 예시 데이터
-  const userPosts = [
-    { id: 1, title: "First Post", content: "Content of the first post" },
-    { id: 2, title: "Second Post", content: "Content of the second post" },
-    // 다른 게시글 데이터들...
-  ];
-
   const [showModal, setShowModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [MypageBoardList, setMyPageBoardList] = useState([]);
   const [filteredBoardData, setFilteredBoardData] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(
+    "https://via.placeholder.com/150"
+  );
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const postsPerPage = 5;
@@ -41,16 +44,23 @@ const ProfilePage = () => {
   });
 
   useEffect(() => {
-    if(userObj) {
+    console.log("userObj" + userObj);
+    if (userObj) {
       setSid(userObj);
     }
-  }, []); 
+  }, []);
   // console.log(userObj);
 
+  //페이지 초기 세팅
   useEffect(() => {
+    console.log(userObj);
     fetchMypageBoardList(userObj._id).then((data) => {
       setMyPageBoardList(data);
       setFilteredBoardData(data);
+    });
+
+    fetchGetProfileImage(userObj._id).then((data) => {
+      setSelectedImage(data.profile);
     });
   }, []);
 
@@ -61,7 +71,17 @@ const ProfilePage = () => {
 
   // 모달을 숨기는 함수 (PasswordChangeModal 컴포넌트에 전달)
   const handleCloseModal = () => {
-    setShowModal(false);
+    setShowProfileModal(false);
+  };
+
+  // 모달프로필을 보여주는 함수
+  const handleShowProfileModal = () => {
+    setShowProfileModal(true);
+  };
+
+  // 모달프로필을 숨기는 함수
+  const handleCloseProfileModal = () => {
+    setShowProfileModal(false);
   };
 
   //보드 검색해서 띄우는 함수
@@ -72,6 +92,15 @@ const ProfilePage = () => {
     // console.log(filteredBoardData);
     setFilteredBoardData(filteredData);
     setPage(1);
+  };
+
+  const handleSelectPicture = (newImage) => {
+    setSelectedImage(newImage); // 선택한 이미지로 세팅
+    setShowProfileModal(false); // 모달 닫기
+    fetchChangeProfileImage(userObj._id, newImage);
+    dispatch(fetchProfile(userObj._id)).then((data) => {
+      setSelectedImage(data.payload.profile);
+    });
   };
 
   function onKeyUp(e) {
@@ -92,110 +121,126 @@ const ProfilePage = () => {
     <Container className="myPageContainer">
       <Row>
         <Col xs={12} md={6} className="text-center">
-          {/* 프로필 사진과 내 정보 */}
-          <img
-            src="https://via.placeholder.com/150"
-            alt="Profile"
-            className="profileImage"
-          />
+          <div style={{ width: "90%" }}>
+            {/* 프로필 사진과 내 정보 */}
+            <img
+              src={selectedImage}
+              alt="Profile"
+              className="profileImage"
+              onClick={handleShowProfileModal}
+            />
 
-          <div className="myInfoBox">
-            <div
-              className="infoContents"
-              style={{ marginLeft: "30px", textAlign: "left" }}
-            >
-              <p>
-                <strong>Email </strong>
-                {userObj.email}
-              </p>
-              <p>
-                <strong>Name </strong> {userObj.name}
-              </p>
-              <p>
-                <strong>Phone </strong> {userObj.phone}
-              </p>
-            </div>
-            <div
-              className="d-flex align-items-center"
-              style={{ marginLeft: "30px", marginBottom: "20px" }}
-            >
-              <Button className="passwordbtn" onClick={handleShowModal}>
-                <span className="passwordbtnName">비밀번호 변경</span>
-              </Button>
-              <span className="passwordContent">
-                비밀번호 변경시,<br></br> 비밀번호 재입력이 필요합니다.
-              </span>
+            <div className="myInfoBox">
+              <div
+                className="infoContents"
+                style={{ marginLeft: "30px", textAlign: "left" }}
+              >
+                <p>
+                  <strong>Email </strong>
+                  {userObj.email}
+                </p>
+                <p>
+                  <strong>Name </strong> {userObj.name}
+                </p>
+                <p>
+                  <strong>Phone </strong> {userObj.phone}
+                </p>
+              </div>
+              <div
+                className="d-flex align-items-center"
+                style={{ marginLeft: "30px", marginBottom: "20px" }}
+              >
+                <Button className="passwordbtn" onClick={handleShowModal}>
+                  <span className="passwordbtnName">비밀번호 변경</span>
+                </Button>
+                <span className="passwordContent">
+                  비밀번호 변경시,<br></br> 비밀번호 재입력이 필요합니다.
+                </span>
+              </div>
             </div>
           </div>
         </Col>
-
         <Col xs={12} md={6} className="searchLayout">
-          {/* 내가 쓴 글 목록 */}
-          <Container className="min-vh-100">
-            {/* ... 검색 바 및 리스트 그룹 ... */}
-            {/* 검색 바 */}
-            <div className="search-bar">
-              <Form.Control
-                className="me-2"
-                type="search"
-                placeholder="Search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyUp={onKeyUp}
-              />
-              <Button
-                className="searchbtn"
-                onClick={() => {
-                  handleSearch();
-                  setPage(1);
-                }}
-              >
-                검색
-              </Button>
-            </div>
-            {/* 글 목록 */}
-            <ListGroup as="ul" style={{ marginTop: "10px" }}>
-              {currentPosts.map((item, index) => (
-                <Link
-                  key={index}
-                  to={`/board/${item._id}`}
-                  className="text-decoration-none"
+          <div style={{ width: "90%" }}>
+            {/* 내가 쓴 글 목록 */}
+            <Container className="min-vh-100">
+              {/* ... 검색 바 및 리스트 그룹 ... */}
+              {/* 검색 바 */}
+              <div className="search-bar">
+                <Form.Control
+                  className="me-2"
+                  type="search"
+                  placeholder="Search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyUp={onKeyUp}
+                />
+                <Button
+                  className="searchbtn"
+                  onClick={() => {
+                    handleSearch();
+                    setPage(1);
+                  }}
                 >
-                  <ListGroup.Item
+                  검색
+                </Button>
+              </div>
+              {/* 글 목록 */}
+              <ListGroup
+                className="board-list"
+                as="ul"
+                style={{ marginTop: "10px" }}
+              >
+                {currentPosts.length === 0 ? (
+                  <span>작성한 글이 없습니다.</span>
+                ) : (
+                  <></>
+                )}
+                {currentPosts.map((item, index) => (
+                  <Link
                     key={index}
-                    as="li"
-                    action
-                    className="d-flex justify-content-between align-items-start"
+                    to={`/board/${item._id}`}
+                    className="text-decoration-none"
                   >
-                    <div className="ms-2 me-auto text-truncate">
-                      <div className="fw-bold">{item.boardTitle}</div>
-                    </div>
-                    <div className="d-flex flex-column justify-content-center align-items-end">
-                      <Badge bg="primary" pill>
-                        {/* 14 */}1{/* {item.commentCount} */}
-                      </Badge>
-                      <div>
-                        {new Date(item.createdAt).toISOString().split("T")[0]}
+                    <ListGroup.Item
+                      key={index}
+                      as="li"
+                      action
+                      className="d-flex justify-content-between align-items-start rounded extended-list-item"
+                    >
+                      <div className="ms-2 me-auto text-truncate">
+                        <div className="fw-bold">{item.boardTitle}</div>
                       </div>
-                    </div>
-                  </ListGroup.Item>
-                </Link>
-              ))}
-            </ListGroup>
-            {/* 페이지네이션 */}
-            <PaginationControl
-              page={page}
-              between={4}
-              total={filteredBoardData.length}
-              limit={postsPerPage}
-              changePage={(page) => setPage(page)}
-              ellipsis={1}
-            />
-          </Container>
+                      <div>
+                        <div>
+                          {new Date(item.createdAt).toISOString().split("T")[0]}
+                        </div>
+                      </div>
+                    </ListGroup.Item>
+                  </Link>
+                ))}
+              </ListGroup>
+
+              {/* 페이지네이션 */}
+              <PaginationControl
+                page={page}
+                between={4}
+                total={filteredBoardData.length}
+                limit={postsPerPage}
+                changePage={(page) => setPage(page)}
+                ellipsis={1}
+              />
+            </Container>
+          </div>
         </Col>
       </Row>
       {/* 비밀번호 변경 모달 */}
       <PasswordChangeModal show={showModal} onHide={handleCloseModal} />
+      <ProfileModal
+        show={showProfileModal}
+        onHide={handleCloseProfileModal}
+        onSelectPicture={handleSelectPicture}
+      />
     </Container>
   );
 };

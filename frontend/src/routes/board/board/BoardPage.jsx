@@ -52,12 +52,12 @@ export default function BoardWritePage() {
   });
 
   useEffect(() => {
-    if(userObj) {
+    if (userObj) {
       setSid(userObj);
     }
-  }, []); 
+  }, []);
 
-  console.log(userObj);
+  // console.log(userObj);
   const callCommentData = async (boardId) => {
     try {
       if (boardId !== undefined) {

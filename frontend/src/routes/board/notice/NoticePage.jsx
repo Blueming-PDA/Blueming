@@ -8,7 +8,6 @@ import point from "/point.png";
 import { timeAgo } from "../board/BoardPage";
 import { setSid } from "../../socket/socketEvents";
 
-
 export default function NoticePage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -31,14 +30,13 @@ export default function NoticePage() {
     userAdmin = "trash";
   }
 
-  console.log(userAdmin);
+  // console.log(userAdmin);
 
   useEffect(() => {
-    if(userObj) {
+    if (userObj) {
       setSid(userObj);
     }
-  }, []); 
-
+  }, []);
 
   const callCommentData = async (boardId) => {
     try {
