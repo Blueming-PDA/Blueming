@@ -23,7 +23,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (userObj.isLoggedIn === true) {
       alert("이미 로그인 되었습니다!");
-      navigate("/");
+      navigate("/main");
     }
   }, []);
 
@@ -36,11 +36,11 @@ export default function LoginPage() {
           if (resp.payload.token) {
             //resp.token = user
             // delete resp.payload.token;
-            
+
             // socket.emit("login", email, (res) => {
             //   console.log("Socket-Res", res)
             // })
-            navigate("/");
+            navigate("/main");
 
           }
         })

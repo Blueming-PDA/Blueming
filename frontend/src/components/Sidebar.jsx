@@ -32,7 +32,7 @@ const Sidebar = () => {
           <img src={logo} width="60" className="logo-img" alt="Blueming logo" />
         </Link> */}
         <Nav.Link
-          href="/"
+          href="/main"
           className="nav-link"
           style={{ color: "#5D5D5D", fontWeight: "normal", fontSize: "19px" }}
         >

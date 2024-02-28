@@ -19,11 +19,17 @@ import NoticeWritePage from "~/routes/board/notice/write/NoticeWritePage";
 
 export const router = createBrowserRouter([
   {
+    path: "/",
+    index: true,
+    element: <LoginPage />,
+  },
+  {
     path: "",
     element: <MainLayout />,
     children: [
+
       {
-        path: "",
+        path: "/main",
         index: true,
         element: <MainPage />,
       },
