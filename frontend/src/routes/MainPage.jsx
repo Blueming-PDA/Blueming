@@ -10,7 +10,7 @@ import point from "/point.png";
 import "./MainPage.css";
 import socket from "./socket/socket";
 import { setSid } from "./socket/socketEvents";
-import data from "../assets/data/ curriculum.json";
+import data from "./curriculum.json";
 
 export default function MainPage() {
   const [showCodeShare, setShowCodeShare] = useState(false);
