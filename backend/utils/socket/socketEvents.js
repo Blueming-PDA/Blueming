@@ -12,7 +12,6 @@ module.exports = function (io) {
       // console.log("User.setSid를 보내고 받아온 USER !!!!!!!", user);
     });
 
-
     socket.on("setHeaderMessage", async ({ userObj, newMessage }) => {
       const user = await User.setSid(userObj.email, socket.id);
       console.log("User.setSid를 보내고 받아온 USER2 !!!!!!!", user);
@@ -29,7 +28,7 @@ module.exports = function (io) {
         messageCreatedAt: -1,
       });
       socket.emit("setHeaderMessageBack", recentMessage.messageContent);
-
+    });
     socket.on("message", async (alarmContent) => {
       console.log("alarm :: ", alarmContent);
 
@@ -42,7 +41,6 @@ module.exports = function (io) {
       } catch (error) {
         console.error(error);
       }
-
     });
 
     socket.on("disconnect", () => {
