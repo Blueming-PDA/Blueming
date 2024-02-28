@@ -24,7 +24,7 @@ jobs:
             cd /home/ubuntu/Blueming
             git pull origin release
             pm2 kill
-            cd frontend/
+            cd /home/ubuntu/Blueming/frontend
             npm run build
-            cd ../backend/
+            cd /home/ubuntu/Blueming/backend
             pm2 start bin/www
