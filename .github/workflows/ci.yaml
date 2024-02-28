@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout release
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: excuting remote ssh commands
         uses: appleboy/ssh-action@v0.1.6
@@ -23,8 +23,8 @@ jobs:
             cd /home/ubuntu/Blueming
             git pull origin release
             pm2 kill
-            cd /frontend
-            sudo rm -rf ./dist
+            cd frontend/
+            sudo rm -rf dist/
             npm run build
-            cd ../backend
+            cd ../backend/
             pm2 start bin/www
