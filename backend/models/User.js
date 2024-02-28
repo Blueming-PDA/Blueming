@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema({
     default: "default",
   },
   profile: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: "9334178.jpg",
   },
 });
 
