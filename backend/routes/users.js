@@ -114,4 +114,18 @@ router.get("/:userId/boards", authenticate, async (req, res, next) => {
     });
 });
 
+router.post("/:userId/profile", authenticate, async (req, res, next) => {
+  const userId = req.params.userId;
+  const { profile } = req.body;
+  User.findByIdAndUpdate(userId, {
+    profile: profile,
+  })
+    .then((data) => {
+      res.json({ message: "프로필 변경" });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 module.exports = router;
