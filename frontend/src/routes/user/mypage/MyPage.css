@@ -1,0 +1,76 @@
+.searchbtn {
+  width: 100px;
+  height: 45px;
+  border-radius: 15px !important;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  color: #474747;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.passwordbtn {
+  width: 120px;
+  height: px;
+  border-radius: 15px !important;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  color: #474747;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.myInfoBox {
+  width: 500px;
+  height: 350px;
+  background-color: #ebf1ff;
+  border-radius: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  padding-top: 20px;
+  margin: 0 auto;
+  bottom: -20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 30px;
+  margin-right: 20px;
+}
+
+.myInfoBox p {
+  margin-bottom: 15px; /* 하단 간격 조정 */
+  font-size: 1.3em; /* 글자 크기 증가 */
+}
+.passwordContent {
+  font-size: 1.05em;
+  margin-left: 30px;
+}
+
+.passwordbtnName {
+  font-size: 1rem;
+}
+
+.search-bar {
+  margin-top: 30px;
+}
+
+.myPageContainer {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.profileImage {
+  width: 210px; /* 원하는 가로 너비 */
+  height: auto; /* 세로 너비는 가로 너비에 맞게 자동 조절 */
+  border-radius: 50%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.searchLayout {
+  text-align: center;
+}

@@ -5,38 +5,12 @@ import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import point from "/point.png";
+import { timeAgo } from "../board/BoardPage";
+import { setSid } from "../../socket/socketEvents";
 
-export function timeAgo(updatedAt) {
-  const now = new Date();
-  const updatedTime = new Date(updatedAt);
 
-  const secondsPast = (now.getTime() - updatedTime.getTime()) / 1000;
 
-  if (secondsPast < 60) {
-    return parseInt(secondsPast) + "초 전";
-  }
-  if (secondsPast < 3600) {
-    return parseInt(secondsPast / 60) + "분 전";
-  }
-  if (secondsPast <= 86400) {
-    return parseInt(secondsPast / 3600) + "시간 전";
-  }
-  if (secondsPast > 86400) {
-    let month = (updatedTime.getMonth() + 1).toString();
-    let date = updatedTime.getDate().toString();
-    let hours = updatedTime.getHours().toString();
-    let minutes = updatedTime.getMinutes().toString();
-
-    month = month.length < 2 ? "0" + month : month;
-    date = date.length < 2 ? "0" + date : date;
-    hours = hours.length < 2 ? "0" + hours : hours;
-    minutes = minutes.length < 2 ? "0" + minutes : minutes;
-
-    return `${month}.${date} ${hours}:${minutes}`;
-  }
-}
-
-export default function BoardWritePage() {
+export default function AssignmentPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [boardData, setBoardData] = useState([]);
@@ -44,11 +18,17 @@ export default function BoardWritePage() {
   const postsPerPage = 5;
   const boardType = "assignment";
 
-  const userObj = useSelector((state) => {
+  let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
-  const userId = userObj._id;
-  const userName = userObj.name;
+
+  let userId;
+  if (userObj) {
+    userId = userObj._id;
+  } else {
+    userId = "trash";
+  }
+
 
   const callCommentData = async (boardId) => {
     try {
@@ -155,7 +135,7 @@ export default function BoardWritePage() {
       <div className="board-list">
         {currentPosts.map((data, index) => (
           <div>
-            {userId === data.userId ? (
+            {userId === (data.userId || "trash") ? (
               <Link
                 to={`/assignment/${data._id}`}
                 key={data._id}
@@ -191,7 +171,7 @@ export default function BoardWritePage() {
             ) : (
               <div
                 className="assignment-btn"
-                onClick={() => alert("비밀 글입니다!")}
+                onClick={() => alert("작성자만 볼 수 있는 글입니다!")}
               >
                 <div key={index} className="board">
                   <div className="board-tags">

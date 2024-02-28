@@ -114,4 +114,31 @@ router.get("/:userId/boards", authenticate, async (req, res, next) => {
     });
 });
 
+//프로필 이미지 변경
+router.put("/:userId/profile", authenticate, async (req, res, next) => {
+  const userId = req.params.userId;
+  const { profile } = req.body;
+  User.findByIdAndUpdate(userId, {
+    profile: profile,
+  })
+    .then((data) => {
+      res.json({ message: "프로필 변경" });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+//프로필 이미지 조회
+router.get("/:userId/profile", authenticate, async (req, res, next) => {
+  const userId = req.params.userId;
+  User.findById(userId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 module.exports = router;

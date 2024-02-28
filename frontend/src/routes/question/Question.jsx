@@ -1,6 +1,7 @@
+
 import React, { useCallback, useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import socket from "./alarm"
+import { emitMessage } from '../socket/socketEvents';
 
 export default function Question({ handleShowQuestion }) {
     const [question, setQuestion] = useState('');
@@ -10,10 +11,9 @@ export default function Question({ handleShowQuestion }) {
         setShowQuestionInput(showQuestionInput => !showQuestionInput);
     }
 
-
-
     const onSubmit = useCallback((question) => {
-        alert(`question : ${question} 을 백엔드로 요청보냅니다!`)
+        // alert(`question : ${question} 을 백엔드로 요청보냅니다!`);
+        emitMessage(question);
         handleShowQuestion()
     }, [handleShowQuestion]);
 
@@ -24,9 +24,11 @@ export default function Question({ handleShowQuestion }) {
                 <Modal.Header closeButton>
                     <Modal.Title>질문하기</Modal.Title>
                 </Modal.Header>
-                <Form onSubmit={onSubmit}>
+                <Form onSubmit={(e) => {
+                    e.preventDefault();
+                    onSubmit(question);
+                }}>
                     <Modal.Body>
-
 
                         <Button onClick={() => {
                             const questionText = "코드를 다시 보여주세요";
@@ -60,4 +62,5 @@ export default function Question({ handleShowQuestion }) {
             </Modal>
         </>
     )
+
 }
