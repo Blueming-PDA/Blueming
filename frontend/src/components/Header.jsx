@@ -10,6 +10,7 @@ import socket from "../routes/socket/socket";
 import { setMessage } from "../store/reducers/message";
 import logo from "/b-logo.png";
 import { Link } from "react-router-dom";
+import profile1 from "/profile/9334178.jpg";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
@@ -17,6 +18,7 @@ const Header = () => {
   const navigate = useNavigate();
   const message = useSelector((state) => state.message.message);
   console.log("aptpwl", message);
+  console.log(user.userInfo);
 
   const handleLogout = async () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -88,16 +90,28 @@ const Header = () => {
           <div style={{ display: "flex", marginRight: "50px" }}>
             <Nav.Link href="/users/mypage">
               <div style={{ fontSize: "17px" }}>
-                <img
-                  src={user.userInfo.profile} // 여기에 원하는 이미지의 경로를 넣어주세요
-                  className="rounded-image" // 앞서 정의한 클래스 이름을 사용
-                  style={{
-                    width: "35px",
-                    height: "35px",
-                    borderRadius: "50%",
-                    marginRight: "10px",
-                  }}
-                />
+                {user.userInfo.profile === "none" ? (
+                  <img
+                    src={profile1}
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                      borderRadius: "50%",
+                      marginRight: "10px",
+                    }}
+                  ></img>
+                ) : (
+                  <img
+                    src={user.userInfo.profile} // 여기에 원하는 이미지의 경로를 넣어주세요
+                    className="rounded-image" // 앞서 정의한 클래스 이름을 사용
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                      borderRadius: "50%",
+                      marginRight: "10px",
+                    }}
+                  />
+                )}
                 {user.userInfo.name}님
               </div>
             </Nav.Link>
