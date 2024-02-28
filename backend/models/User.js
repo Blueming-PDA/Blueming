@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
   },
   profile: {
     type: String,
-    default: "9334178.jpg",
+    default: "/profile/9334178.jpg",
   },
 });
 
