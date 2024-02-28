@@ -19,6 +19,7 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.REMOTE_PRIVATE_KEY }}
           port: ${{ secrets.REMOTE_SSH_PORT }}
+          timeout: 300s
           script: |
             cd /home/ubuntu/Blueming
             git pull origin release
