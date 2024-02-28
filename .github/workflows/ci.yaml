@@ -25,7 +25,6 @@ jobs:
             git pull origin release
             pm2 kill
             cd frontend/
-            sudo rm -rf dist/
             npm run build
             cd ../backend/
             pm2 start bin/www
