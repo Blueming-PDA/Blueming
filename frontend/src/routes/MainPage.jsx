@@ -4,53 +4,48 @@ import { useDispatch, useSelector } from "react-redux";
 import CodeShare from "./codeShare/CodeShare";
 import SetLink from "./codeShare/SetLink";
 import Question from "./question/Question";
+import AlarmList from "./question/AlarmList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import point from "/point.png";
 import "./MainPage.css";
 import socket from "./socket/socket";
+import { setSid } from "./socket/socketEvents";
 
 export default function MainPage() {
-  const [codelink, setCodelink] = useState("");
   const [showCodeShare, setShowCodeShare] = useState(false);
   const [showLinkInput, setshowLinkInput] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
-  let [reload, setReload] = useState(0);
+  const [showAlarmList, setShowAlarmList] = useState(false);
 
   let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
 
+
   useEffect(() => {
     if (userObj) {
-      userObj = { ...userObj, sid: socket.id };
-
-      if (userObj.sid) {
-        socket.emit("setSid", userObj);
-        console.log(userObj.sid);
-      } else {
-        setReload(reload + 1);
-      }
+      setSid(userObj);
     }
-  }, [reload]);
+  }, []);
 
-  console.log(userObj);
+
   const handleShowCodeShare = () => {
-    // window.open(
-    //   codelink,
-    //   "_blank",
-    //   "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400"
-    // );
-    if (!codelink) {
-      alert("화면 공유 링크를 먼저 삽입해주세요");
-      return;
-    }
     setShowCodeShare((showCodeShare) => !showCodeShare);
   };
+
+  // 링크 공유 하기 버튼
   const handleShowLinkInput = () => {
     setshowLinkInput((showLinkInput) => !showLinkInput);
   };
+
+  // 질문 보기 버튼
   const handleShowQuestion = () => {
     setShowQuestion((showQuestion) => !showQuestion);
+  };
+
+  // 질문 보기 버튼
+  const handleShowAlarmList = () => {
+    setShowAlarmList((showAlarmList) => !showAlarmList);
   };
 
   // 정보
@@ -59,27 +54,44 @@ export default function MainPage() {
   // socket 연결 확인
   useEffect(() => {
     console.log(socket);
+
     // socket.on('connection', (io) => {
     //   console.log('SocketID::', io.id);
 
     // })
-  })
+  });
 
 
   return (
     <div className="main-container">
-      <div className="btn-group">
-        <Button className="main-btn" onClick={handleShowQuestion}>
-          🙋 질문하기
-        </Button>
-        {/* <Button>👀 질문보기</Button> */}
-        <Button className="main-btn" onClick={handleShowLinkInput}>
-          🔗 화면공유하기
-        </Button>
-        <Button className="main-btn" onClick={handleShowCodeShare}>
-          🖥️ 화면공유 보기
-        </Button>
-      </div>
+
+      {userObj &&
+        <div className="btn-group">
+
+          {userObj.admin === 1 ?
+
+            <Button className="main-btn" onClick={handleShowAlarmList}>
+              👀 질문보기
+            </Button>
+            :
+
+            <Button className="main-btn " onClick={handleShowQuestion}>
+              🙋 질문하기
+            </Button>
+          }
+          <Button className="main-btn" onClick={handleShowLinkInput}>
+            🔗 화면공유하기
+          </Button>
+          <Button className="main-btn" onClick={handleShowCodeShare}>
+            🖥️ 화면공유 보기
+          </Button>
+        </div>
+      }
+      {showCodeShare && <CodeShare />}
+      {showQuestion && <Question handleShowQuestion={handleShowQuestion} />}
+      {showAlarmList && <AlarmList handleShowAlarmList={handleShowAlarmList} />}
+      {showLinkInput && <SetLink handleShowLinkInput={handleShowLinkInput} />}
+
 
       <img className="point-img" src={point} width="75" alt="Blueming point" />
       <div className="week-board">
@@ -129,14 +141,7 @@ export default function MainPage() {
         </div>
       </div>
 
-      {showLinkInput && (
-        <SetLink
-          setCodelink={setCodelink}
-          handleShowLinkInput={handleShowLinkInput}
-        />
-      )}
-      {showQuestion && <Question handleShowQuestion={handleShowQuestion} />}
-      {showCodeShare && <CodeShare link={codelink} />}
+
     </div>
   );
 }

@@ -3,8 +3,7 @@ import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { redirect, useNavigate, Link } from "react-router-dom";
 import { fetchLogin } from "../../../store/reducers/user";
 import { useDispatch, useSelector } from "react-redux";
-
-
+import "./LoginPage.css";
 
 export default function LoginPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -19,7 +18,7 @@ export default function LoginPage() {
   const userObj = useSelector((state) => {
     return state.user;
   });
-  console.log(userObj);
+  // console.log(userObj);
 
   useEffect(() => {
     if (userObj.isLoggedIn === true) {
@@ -32,18 +31,17 @@ export default function LoginPage() {
     (email, password) => {
       dispatch(fetchLogin({ email, password }))
         .then((resp) => {
-          console.log("hello");
-          console.log(resp);
+          // console.log("hello");
+          // console.log(resp);
           if (resp.payload.token) {
             //resp.token = user
             // delete resp.payload.token;
-
-
+            
             // socket.emit("login", email, (res) => {
             //   console.log("Socket-Res", res)
             // })
-
             navigate("/");
+
           }
         })
         .catch((error) => {
@@ -54,9 +52,17 @@ export default function LoginPage() {
   );
 
   return (
-    <Container className="min-vh-100 d-flex flex-column justify-content-center align-items-center">
+    <Container className="appContainer">
       <div style={{ width: "100%", maxWidth: 640 }}>
-        <h3 style={{ alignSelf: "start" }}> Be Blue, Be Bloom!</h3>
+        <img className="logo" alt="point" src="../public/point.png" />
+        <h1
+          className="title"
+          style={{ fontWeight: "bold", alignSelf: "start" }}
+        >
+          {" "}
+          한계 없는 학습의 정원, <br></br>
+          블루밍에서 당신의 잠재력을 꽃피우세요!
+        </h1>
         <br />
         <FloatingLabel
           controlId="floatingInput"
@@ -97,12 +103,12 @@ export default function LoginPage() {
           }}
         >
           <Link to="/users/signup">
-            <Button className="w-20 mb-2" style={{ flex: "1" }}>
+            <Button className="loginbtn" style={{ flex: "1" }}>
               회원가입
             </Button>
           </Link>
           <Button
-            className="w-100 mb-2"
+            className="loginbtn"
             onClick={(e) => {
               e.preventDefault();
               onSubmitLogin(userEmail, userPassword);

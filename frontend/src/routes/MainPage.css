@@ -3,18 +3,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto 0px;
+  margin-top: 10%;
 }
 
 .btn-group {
-  margin-top: 70px;
   display: flex;
-  gap: 80px;
+  gap: 60px;
 }
 
 .main-btn {
-  width: 200px;
-  height: 100px;
+  width: 250px;
+  height: 125px;
   border-radius: 15px !important;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   background-color: #ebf1ff;
@@ -31,8 +30,8 @@
 }
 
 .week-board {
-  width: 800px;
-  height: 300px;
+  width: 1000px;
+  height: 380px;
   background-color: #ebf1ff;
   border-radius: 20px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -42,46 +41,42 @@
 }
 
 .week-board p {
-  font-size: 18px;
+  font-size: 23px;
   font-weight: 400;
   margin-top: 35px;
   color: #474747;
 }
 
 .week-card-container {
-  gap: 20px;
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  justify-content: space-evenly;
 }
 
 .custom-card {
-  width: 135px;
-  height: 180px;
+  width: 155px;
+  height: 230px;
   border: none;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   margin-top: 5px;
 }
 
-.custom-card.c1 {
-  margin-left: 22px;
-}
-
 .circle {
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
   background-color: gray;
   border-radius: 50%;
   position: absolute;
   top: 15px;
-  left: 65px;
+  left: 72.5px;
 }
 
 p.week-text {
   color: #474747;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 20px;
   margin-top: -5px;
 }
 
@@ -99,6 +94,6 @@ p.week-num.red {
 
 p.week-curriculum {
   color: #474747;
-  font-size: 9px;
+  font-size: 14px;
   margin-top: -5px;
 }

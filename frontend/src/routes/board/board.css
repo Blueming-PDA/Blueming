@@ -1,3 +1,7 @@
+.board-page {
+  margin-top: 80px;
+}
+
 .search-bar {
   display: flex;
   justify-content: center;

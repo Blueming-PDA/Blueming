@@ -9,8 +9,10 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 const noticeRouter = require("./routes/notice");
+const alarmRouter = require("./routes/alarm");
 const assignmentRouter = require("./routes/assignment");
 const proxyRouter = require("./routes/proxy");
+const codeLinkRouter = require("./routes/codeLink");
 
 var app = express();
 
@@ -41,7 +43,9 @@ app.use("/api/users", usersRouter);
 app.use("/api/board", boardRouter);
 app.use("/api/notice", noticeRouter);
 app.use("/api/assignment", assignmentRouter);
+app.use("/api/alarms", alarmRouter);
 app.use("/api/proxy", proxyRouter);
+app.use("/api/link", codeLinkRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

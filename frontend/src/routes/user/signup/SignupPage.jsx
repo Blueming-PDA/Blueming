@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Button, Container, FloatingLabel, Form } from "react-bootstrap";
 import { fetchSignup } from "../../../lib/apis/auth";
 import { redirect, useNavigate } from "react-router-dom";
+import "./SignupPage.css";
 
 export default function SignUpPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -28,9 +29,13 @@ export default function SignUpPage() {
   return (
     <Container className="min-vh-100  d-flex flex-column justify-content-center align-items-center">
       <div style={{ width: "100%", maxWidth: 640 }}>
+        <img className="logo" alt="point" src="../public/point.png" />
         <h3 style={{ alignSelf: "start" }}> 환영합니다!</h3>
-        Blueming은 어쩌고 저쩌고 어쩌고 저쩌고 하고 있습니다. <br></br>
-        Blueming과 함께 더욱 발전하는 내일을 만드세요!
+        <span className="content">
+          교육의 아름다운 정원, 블루밍에 오신 것을 축하합니다 🌷✨<br></br>
+          블루밍과 함께 스스로의 학습 여정을 개척하고, 성장해보세요 <br></br>
+          함께 성장하는 우리의 정원에서 여러분을 기다리고 있겠습니다
+        </span>
         <br></br>
         <br></br>
         <FloatingLabel
@@ -93,7 +98,7 @@ export default function SignUpPage() {
           <br />
         </div>
         <Button
-          className="w-100"
+          className="signupbtn"
           onClick={(e) => {
             e.preventDefault();
             onRegisterSubmit(userEmail, userPassword, userName, userPhone);

@@ -13,7 +13,7 @@ import BoardApi from "~/lib/apis/board";
 import { useSelector } from "react-redux";
 import point from "/point.png";
 
-export default function BoardWritePage() {
+export default function NoticeWritePage() {
   const navigate = useNavigate();
   const params = useParams();
   const boardId = params.boardId;
@@ -127,7 +127,7 @@ export default function BoardWritePage() {
   }, []);
 
   return (
-    <Container className="min-vh-100">
+    <Container className="min-vh-100" style={{ marginTop: "80px" }}>
       <img
         src={point}
         width="65"

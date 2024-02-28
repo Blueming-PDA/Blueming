@@ -16,6 +16,8 @@ import PasswordChangeModal from "./PasswordChangeModal";
 import { fetchLogout } from "../../../lib/apis/auth";
 import { logout } from "../../../store/reducers/user";
 import { Form } from "react-bootstrap";
+import "./MyPage.css";
+import { setSid } from "../../socket/socketEvents";
 
 const ProfilePage = () => {
   // 사용자가 작성한 게시글 목록을 가정한 예시 데이터
@@ -34,9 +36,15 @@ const ProfilePage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userObj = useSelector((state) => {
+  let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
+
+  useEffect(() => {
+    if(userObj) {
+      setSid(userObj);
+    }
+  }, []); 
   // console.log(userObj);
 
   useEffect(() => {
@@ -54,13 +62,6 @@ const ProfilePage = () => {
   // 모달을 숨기는 함수 (PasswordChangeModal 컴포넌트에 전달)
   const handleCloseModal = () => {
     setShowModal(false);
-  };
-
-  const handleLogout = () => {
-    fetchLogout().then((resp) => {
-      navigate("/users/login");
-    });
-    dispatch(logout());
   };
 
   //보드 검색해서 띄우는 함수
@@ -88,28 +89,24 @@ const ProfilePage = () => {
   );
 
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-center">
+    <Container className="myPageContainer">
+      <Row>
         <Col xs={12} md={6} className="text-center">
-          {/* 프로필 사진 */}
+          {/* 프로필 사진과 내 정보 */}
           <img
             src="https://via.placeholder.com/150"
             alt="Profile"
-            className="img-fluid rounded-circle"
+            className="profileImage"
           />
-        </Col>
-      </Row>
-      <Row className="mt-4 justify-content-center">
-        <Col xs={12} md={8}>
-          {/* 사용자 정보 상자 */}
-          <div
-            className="bg-white p-3 rounded"
-            style={{ border: "2px solid #939393" }}
-          >
-            <h3 className="mb-4">내 정보</h3>
-            <div style={{ marginLeft: "30px", textAlign: "left" }}>
+
+          <div className="myInfoBox">
+            <div
+              className="infoContents"
+              style={{ marginLeft: "30px", textAlign: "left" }}
+            >
               <p>
-                <strong>Email </strong> {userObj.email}
+                <strong>Email </strong>
+                {userObj.email}
               </p>
               <p>
                 <strong>Name </strong> {userObj.name}
@@ -122,48 +119,32 @@ const ProfilePage = () => {
               className="d-flex align-items-center"
               style={{ marginLeft: "30px", marginBottom: "20px" }}
             >
-              <Button variant="secondary" onClick={handleShowModal}>
-                비밀번호 변경
+              <Button className="passwordbtn" onClick={handleShowModal}>
+                <span className="passwordbtnName">비밀번호 변경</span>
               </Button>
-              <span style={{ marginLeft: "1rem" }}>
-                {" "}
-                {/* 16px 혹은 원하는 크기로 조절 */}
-                비밀번호 변경시, 비밀번호 재입력이 필요합니다.
+              <span className="passwordContent">
+                비밀번호 변경시,<br></br> 비밀번호 재입력이 필요합니다.
               </span>
             </div>
           </div>
         </Col>
-      </Row>
-      <Row className="mt-4 justify-content-center">
-        <Col xs={12} md={10}>
-          <Container className="min-vh-100" style={{ width: "80%" }}>
-            {/* <div
-              className="d-flex mb-3 flex-row justify-content-between flex-wrap"
-              style={{ marginTop: "10px" }}
-            >
-              <div>
-                <input type="text" />
-                <Button
-                  variant="primary"
-                  style={{ marginLeft: "10px" }}
-                  onClick={handleShowModal}
-                >
-                  검색
-                </Button>
-              </div>
-            </div> */}
-            <h3>내가 쓴 글</h3>
-            <div className="search-bar d-flex mb-3 flex-row justify-content-between flex-wrap">
+
+        <Col xs={12} md={6} className="searchLayout">
+          {/* 내가 쓴 글 목록 */}
+          <Container className="min-vh-100">
+            {/* ... 검색 바 및 리스트 그룹 ... */}
+            {/* 검색 바 */}
+            <div className="search-bar">
               <Form.Control
-                className="search-form"
+                className="me-2"
                 type="search"
                 placeholder="Search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                onKeyUp={(e) => onKeyUp(e)}
+                onKeyUp={onKeyUp}
               />
               <Button
-                className="search-btn"
+                className="searchbtn"
                 onClick={() => {
                   handleSearch();
                   setPage(1);
@@ -172,7 +153,7 @@ const ProfilePage = () => {
                 검색
               </Button>
             </div>
-
+            {/* 글 목록 */}
             <ListGroup as="ul" style={{ marginTop: "10px" }}>
               {currentPosts.map((item, index) => (
                 <Link
@@ -201,28 +182,19 @@ const ProfilePage = () => {
                 </Link>
               ))}
             </ListGroup>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "10px",
-              }}
-            >
-              <PaginationControl
-                page={page}
-                between={4}
-                total={filteredBoardData.length}
-                limit={postsPerPage}
-                changePage={(page) => {
-                  setPage(page);
-                }}
-                ellipsis={1}
-              />
-            </div>
+            {/* 페이지네이션 */}
+            <PaginationControl
+              page={page}
+              between={4}
+              total={filteredBoardData.length}
+              limit={postsPerPage}
+              changePage={(page) => setPage(page)}
+              ellipsis={1}
+            />
           </Container>
         </Col>
       </Row>
-      <Button onClick={handleLogout}>로그아웃</Button>
+      {/* 비밀번호 변경 모달 */}
       <PasswordChangeModal show={showModal} onHide={handleCloseModal} />
     </Container>
   );

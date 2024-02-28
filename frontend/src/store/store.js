@@ -1,5 +1,6 @@
 import { combineReducers, createStore } from "redux";
 import userReducer from "./reducers/user";
+import messageReducer from "./reducers/message";
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
@@ -10,13 +11,14 @@ import persistStore from "redux-persist/es/persistStore";
 const rootPersistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["user"],
+  whitelist: ["user", "message"],
 };
 
 const rootReducer = persistReducer(
   rootPersistConfig,
   combineReducers({
     user: userReducer,
+    message: messageReducer,
   })
 );
 

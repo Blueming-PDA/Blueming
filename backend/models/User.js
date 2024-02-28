@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
     // socket 통신을 위한 id
     type: String,
     default: "default",
+
   },
 });
 
@@ -65,13 +66,24 @@ userSchema.statics.login = async function (email, password) {
   throw Error("잘못된 이메일입니다.");
 };
 
-userSchema.statics.socket = async function (email, token) {
+
+// socket
+userSchema.statics.setSid = async function (email, sid) {
   const user = await this.findOne({ email });
+
+
   if (user) {
-    user.token = token;
-
+    user.sid = sid;
     await user.save();
+    // console.log("USER.SID", user.sid);
+    return user.visibleUser;
+  }
+};
 
+userSchema.statics.checkUserBySid = async function (sid) {
+  const user = await this.findOne({ sid });
+  if (user) {
+    console.log("찾았습니다.", sid, user.sid);
     return user.visibleUser;
   }
 };

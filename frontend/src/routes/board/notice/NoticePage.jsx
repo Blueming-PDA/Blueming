@@ -5,38 +5,11 @@ import { fetchBoardList, fetchBoardCommentList } from "~/lib/apis/board";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import point from "/point.png";
+import { timeAgo } from "../board/BoardPage";
+import { setSid } from "../../socket/socketEvents";
 
-export function timeAgo(updatedAt) {
-  const now = new Date();
-  const updatedTime = new Date(updatedAt);
 
-  const secondsPast = (now.getTime() - updatedTime.getTime()) / 1000;
-
-  if (secondsPast < 60) {
-    return parseInt(secondsPast) + "초 전";
-  }
-  if (secondsPast < 3600) {
-    return parseInt(secondsPast / 60) + "분 전";
-  }
-  if (secondsPast <= 86400) {
-    return parseInt(secondsPast / 3600) + "시간 전";
-  }
-  if (secondsPast > 86400) {
-    let month = (updatedTime.getMonth() + 1).toString();
-    let date = updatedTime.getDate().toString();
-    let hours = updatedTime.getHours().toString();
-    let minutes = updatedTime.getMinutes().toString();
-
-    month = month.length < 2 ? "0" + month : month;
-    date = date.length < 2 ? "0" + date : date;
-    hours = hours.length < 2 ? "0" + hours : hours;
-    minutes = minutes.length < 2 ? "0" + minutes : minutes;
-
-    return `${month}.${date} ${hours}:${minutes}`;
-  }
-}
-
-export default function BoardWritePage() {
+export default function NoticePage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [boardData, setBoardData] = useState([]);
@@ -44,7 +17,7 @@ export default function BoardWritePage() {
   const postsPerPage = 5;
   const boardType = "notice";
 
-  const userObj = useSelector((state) => {
+  let userObj = useSelector((state) => {
     return state.user.userInfo;
   });
 
@@ -52,11 +25,20 @@ export default function BoardWritePage() {
   let userAdmin;
   if (userObj) {
     userId = userObj._id;
-    userAdmin = userObj.userAdmin;
+    userAdmin = userObj.admin;
   } else {
     userId = "trash";
     userAdmin = "trash";
   }
+
+  console.log(userAdmin);
+
+  useEffect(() => {
+    if(userObj) {
+      setSid(userObj);
+    }
+  }, []); 
+
 
   const callCommentData = async (boardId) => {
     try {
