@@ -1,21 +1,35 @@
 import React, { useCallback, useState } from 'react';
 import { Modal, Button, Card, Form } from 'react-bootstrap';
+import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 
-export default function SetLink({ setCodelink, handleShowLinkInput }) {
+export default function SetLink({ handleShowLinkInput }) {
     const [link, setLink] = useState('');
+
+    let userObj = useSelector((state) => {
+        return state.user.userInfo;
+    });
 
     const onSubmit = useCallback((e) => {
         e.preventDefault();
-        setCodelink(link)
-        handleShowLinkInput()
-    }, [handleShowLinkInput, link, setCodelink])
+        console.log(link)
+        axios.post('/api/link', { codeLink: link, userId: userObj._id, userName: userObj.name })
+            .then((response) => {
+                console.log(response);
+                alert("링크가 정상적으로 저장되었습니다.")
+                handleShowLinkInput();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [handleShowLinkInput, link])
 
     return (
         <>
             <Modal show={true} onHide={handleShowLinkInput}>
                 <Modal.Header closeButton>
 
-                    <Modal.Title>모달창</Modal.Title>
+                    <Modal.Title>링크를 입력하세요!</Modal.Title>
 
                 </Modal.Header>
                 <Form onSubmit={onSubmit}>

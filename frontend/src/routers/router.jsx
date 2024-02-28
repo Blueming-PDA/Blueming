@@ -19,38 +19,24 @@ import NoticeWritePage from "~/routes/board/notice/write/NoticeWritePage";
 
 export const router = createBrowserRouter([
   {
+    path: "/",
+    index: true,
+    element: <LoginPage />,
+  },
+  {
     path: "",
     element: <MainLayout />,
     children: [
+
       {
-        path: "",
+        path: "/main",
         index: true,
         element: <MainPage />,
       },
       {
-        path: "/users",
-        children: [
-          {
-            path: "login",
-            element: <LoginPage />,
-            index: true,
-          },
-          {
-            path: "signup",
-            element: <SignupPage />,
-            index: true,
-          },
-          {
-            path: "mypage",
-            element: <MyPage />,
-            index: true,
-          },
-          {
-            path: "signup",
-            element: <SignupPage />,
-            index: true,
-          },
-        ],
+        path: "/users/mypage",
+        element: <MyPage />,
+        index: true,
       },
       {
         path: "/assignment",
@@ -126,6 +112,21 @@ export const router = createBrowserRouter([
             element: <NoticeWritePage />,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: "/users",
+    children: [
+      {
+        path: "login",
+        element: <LoginPage />,
+        index: true,
+      },
+      {
+        path: "signup",
+        element: <SignupPage />,
+        index: true,
       },
     ],
   },
