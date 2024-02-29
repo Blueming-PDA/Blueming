@@ -1,6 +1,6 @@
 
 <div align="center">
-<h1>Bluming</h1>
+<h1>Blueming</h1>
 <br /><br />
   
 <img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/af7c8f7f-f3b9-4930-9ca3-6864825fad1d" alt="logo-image" width="35%"><br /><br />
