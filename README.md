@@ -41,7 +41,11 @@
 # Project Architecture 
 
 <img src="https://github.com/Blueming-PDA/Blueming/assets/52192706/69680bd5-4583-4a69-86a7-1c56e204d985" alt="architecture-image" width=800><br />
-  
+<br /><br /><br />
+
+<img src="https://github.com/Blueming-PDA/Blueming/assets/63188042/c3222ee0-401a-4bc5-8845-e0d9c7c4c82f" alt="logo-image" width=50><br />
+# DB Modeling
+<img src="https://github.com/Blueming-PDA/Blueming/assets/53520867/324ea3cb-6b39-43b9-9df8-c041813da7ab" alt="DBmodeling-image" width=800><br />
 <br /><br /><br />
 
 
