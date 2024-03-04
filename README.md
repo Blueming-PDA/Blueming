@@ -71,7 +71,7 @@
 |<img src = "https://avatars.githubusercontent.com/u/86925185?v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/63188042?v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/53520867?v=4" width=150>|<img src = "https://avatars.githubusercontent.com/u/52192706?v=4" width=150>|
 |[@allllfo](https://github.com/allllfo)|[@lvolzdev](https://github.com/lvolzdev)|[@seohee99](https://github.com/seohee99)|[@ekgus9701](https://github.com/ekgus9701)|
 |Full-stack|Full-stack|Full-stack|Full-stack|
-| ✔️ AWS EC2 배포 <br> ✔️ 로그인, 회원가입 기능 및 UI 구현 <br> ✔️ 마이페이지 기능 및 UI 구현 <br> ✔️ 기타 UI 구현 | ✔️ AWS EC2 배포 및 CICD 구현<br> ✔️ 메인페이지 UI 및 커리큘럼 기능 구현<br> ✔️ 게시글 작성/수정 페이지 구현<br> ✔️ 로고 디자인 포함 기타 문서 작업 | ✔️ 기본 레이아웃 설계 및 구현<br> ✔️ Iframe, VSCode Liveshare Extension을 활용한 화면 공유 기능 구현<br> ✔️ Socket.io를 활용한 질문, 알림 기능 구현<br> | ✔️ 게시판 리스트 페이지 구현 <br> ✔️ 게시글 상세 페이지 구현<br> ✔️ 소켓을 활용한 헤더 문구 변경 기능 구현<br> ✔️ 기타 UI 구현|
+| ✔️ AWS EC2 배포 <br> ✔️ 로그인, 회원가입 기능 및 UI 구현 <br> ✔️ 마이페이지 기능 및 UI 구현 <br> ✔️ 기타 UI 구현 | ✔️ AWS EC2 배포 및 CICD 구현<br> ✔️ 메인페이지 UI 및 커리큘럼 기능 구현<br> ✔️ 게시글 작성/수정 페이지 구현<br> ✔️ 로고 디자인 포함 기타 문서 작업 | ✔️ 기본 레이아웃 설계 및 구현<br> ✔️ Iframe, VSCode Liveshare Extension을 활용한 화면 공유 기능 구현<br> ✔️ Socket.io를 활용한 질문, 알림 기능 구현<br> | ✔️ 게시판 리스트 페이지 구현 <br> ✔️ 게시글 상세 페이지 구현<br> ✔️ 헤더 문구 변경 기능 구현<br> ✔️ 기타 UI 구현|
 
 <br /><br /><br />
 
